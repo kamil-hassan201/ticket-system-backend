@@ -1,8 +1,9 @@
 const { createSlice } = require("@reduxjs/toolkit");
+const { counterActions } = require("../counters/counterSlice");
 
 const initialState = {
-    cardQue: [100],
-    top: null,
+    cardQue: [101],
+    top: 100,
 };
 
 const cardSlice = createSlice({
@@ -10,14 +11,13 @@ const cardSlice = createSlice({
     initialState,
     reducers: {
         enQueue: (state, action) => {
-            state.cardQue.push(action.payload);
-        },
-        deQueue: (state, action) => {
-            state.top = state.cardQue.shift();
+            state.cardQue.push(state.cardQue[state.cardQue.length - 1] + 1);
         },
     },
     extraReducers: (builder) => {
-        builder.addCase();
+        builder.addCase(counterActions.callNext, (state, action) => {
+            state.top = state.cardQue.shift(); // deQueue
+        });
     },
 });
 
