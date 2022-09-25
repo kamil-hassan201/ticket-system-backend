@@ -4,7 +4,7 @@ const cors = require("cors");
 const { counterActions } = require("./rtk/features/counters/counterSlice");
 
 const app = express();
-const PORT = 3000;
+const port = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(cors());
@@ -73,11 +73,11 @@ app.get("/enqueue", (req, res) => {
     res.json(result);
 });
 
-app.listen(PORT, (error) => {
+app.listen(port, (error) => {
     if (!error)
         console.log(
             "Server is Successfully Running, and App is listening on port " +
-                PORT
+                port
         );
     else console.log("Error occurred, server can't start", error);
 });
